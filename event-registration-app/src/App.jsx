@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 import EventRegistrationForm from "./components/EventRegform";
@@ -13,13 +14,33 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <main className="flex-grow p-4">
-        <EventRegistrationForm onSubmit={handleAddEvent} />
-        <MyEventsPage events={registeredEvents} />
-      </main>
-      <Footer />
-    </div>
+    <Router>
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-grow p-4">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <EventRegistrationForm onSubmit={handleAddEvent} />
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <EventRegistrationForm onSubmit={handleAddEvent} />
+              }
+            />
+            <Route
+              path="/my-events"
+              element={
+                <MyEventsPage events={registeredEvents} />
+              }
+            />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
